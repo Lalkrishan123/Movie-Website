@@ -1,25 +1,23 @@
+// async function getmovie() {
+//   const url = "https://freetestapi.com/api/v1/movies";
+//   try {
+//     const response = await fetch(url);
+//     console.log(response, "response");
+//     const result = await response.json();
+//     console.log(result, "result");
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 document.addEventListener("DOMContentLoaded", () => {
-  const APIURL =
-    "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1";
-  const IMGPATH = "https://image.tmdb.org/t/p/w1280";
-  const SEARCHAPI =
-    "https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=";
+  const APIURL = "https://freetestapi.com/api/v1/movies";
+  const form = document.getElementById("form");
+  const search = document.getElementById("search");
+  const moviesContainer = document.getElementById("moviesContainer");
+  const slideshow = document.getElementById("slideshow");
 
-  fetch(APIURL)
-    .then((Response) => Response.json())
-    .then((data) => {
-      const moviesContainer = document.getElementById("movies");
-      data.results.forEach((movie) => {
-        const movieElement = document.createElement("div");
-        movieElement.classList.add("movie");
-        movieElement.innerHTML = `<img src ="${
-          IMGPATH + movie.poster_path
-        }" alt ="${movie.title}">;
-        <h3>${movie.title}</h3>`;
-        moviesContainer.appendChild(movieElement);
-      });
-    });
-
+  fetchMovies(APIURL);
   const signupForm = document.getElementById("signupForm");
 
   if (signupForm) {
@@ -29,6 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const contact = document.getElementById("contact").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
+
+      // console.log("getMOvie");
+      // getmovie();
 
       if (name && contact && email && password) {
         const user = {
@@ -69,6 +70,73 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         alert("Invalid Credentials");
       }
+    });
+  }
+
+  // slideshow
+
+  if (slideshow) {
+    const images = [
+      "https://images.unsplash.com/photo-1572188863110-46d457c9234d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bW92aWVzJTIwcG9zdGVyc3xlbnwwfHwwfHx8MA%3D%3D ?text=Movie+1",
+      "https://images.unsplash.com/photo-1606603696914-a0f46d934b9c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bW92aWVzJTIwcG9zdGVyc3xlbnwwfHwwfHx8MA%3D%3D ?text=Movie+2",
+      "https://images.unsplash.com/photo-1659652603378-22f82bedde0a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1vdmllcyUyMHBvc3RlcnN8ZW58MHx8MHx8fDA%3D ?text=Movie+3",
+    ];
+
+    let currentIndex = 0;
+    function showImage(index) {
+      slideshow.innerHTML = `<img src="${images[index]}"style="width:100%">`;
+    }
+
+    showImage(currentIndex);
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % Image.length;
+      showImage(currentIndex);
+    }, 2000);
+  }
+
+  if (form) {
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const searchTerm = search.value;
+
+      if (searchTerm && searchTerm !== '') {
+        fetchMovies(APIURL , searchTerm);
+        search.value = '';
+      } else {
+        // window.location.reload();
+        fetchMovies(APIURL);
+      }
+    });
+  }
+
+  function fetchMovies(url) {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data, "data.results");
+        displayMovies(data);
+      });
+  }
+
+  function displayMovies(movies) {
+    if (!moviesContainer) {
+      console.error("Movies Container not found");
+      return;
+    }
+    moviesContainer.innerHTML = "";
+    console.log(movies);
+
+    movies.forEach((movie) => {
+      console.log(movie);
+
+      const movieElement = document.createElement("div");
+      movieElement.classList.add("movie");
+      movieElement.innerHTML = `
+        <img src={movie.poster} alt="${movie.title}">
+        <h3>${movie.title}</h3> 
+      `;
+
+      moviesContainer.appendChild(movieElement);
     });
   }
 });

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="index.css" />
+     <link rel="stylesheet" href="app.css">
   </head>
   <body>
     <div class="navbar">
@@ -12,8 +12,17 @@
       <a href="login.html">Login</a>
       <a href="signup.html">Signup</a>
     </div>
-    <div id="slideshow" class="container"></div>
-    <div id="movies" class="container"></div>
+    <!-- <div id="slideshow" class="container"></div> -->
+    <form action="" id="form" class="container">
+      <input
+        type="text"
+        name=""
+        id="search"
+        placeholder="Search for a movie..."
+      />
+      <button type="submit">Search</button>
+    </form>
+    <div id="moviesContainer" class="container"></div>
     <script src="index.js"></script>
   </body>
 </html>

@@ -1,3 +1,10 @@
+body{
+  background: linear-gradient(120deg, #007bff, #d0314c);
+
+}
+
+
+
 .navbar {
   overflow: hidden;
   background-color: gray;
@@ -24,35 +31,30 @@
   box-shadow: 5px 0 5px 5px;
   margin: 30px;
   border-radius: 10px;
-  width: fit-content;
+  /* width: fit-content; */
   float: right;
+  background: white;
 }
-.container input{
-    box-sizing: border-box;
+form {
+  
 }
-/* .slideshow{
-    position: relative;
-    width: 100%;
-    margin: auto;
-    max-width: 666;
-} */
 .container form {
   padding: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#slideshow img{
+#slideshow img {
   width: 100%;
   height: auto;
 }
 
-#movie{
+#movie {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.movie img{
+.movie img {
   width: 100%;
   height: auto;
 }
