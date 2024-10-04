@@ -12,6 +12,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   const APIURL = "https://freetestapi.com/api/v1/movies";
+  console.log(APIURL)
   const form = document.getElementById("form");
   const search = document.getElementById("search");
   const moviesContainer = document.getElementById("moviesContainer");
